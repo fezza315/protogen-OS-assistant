@@ -1,6 +1,7 @@
 # ProtogenOS
 ### warning that this project has only been tested on guardia arch with kde plasma and is highly likely not to work on windows
 but it should work on fedora, debian, ubuntu and most arch distributions 
+this project assumes you have python and rust installed prior. refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) page
 
 A local, voice-and-text controllable system assistant for Linux, with a
 GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
@@ -88,45 +89,7 @@ Reboot the machine
 straight to that plan (still shown, since it's still system-changing) with
 no research step.
 
-## Installing
 
-```
-git clone <this repo>
-cd protogenos
-./installer/install_assistant.sh    # the assistant: daemon, UI, voice, Jan.ai wiring
-```
-
-That's the only script you need. It never touches your KDE theme, color
-scheme, icon theme, or wallpaper.
-
-There is a **separate, optional** `installer/install_theme.sh` for the
-original ProtogenOS Plasma color scheme + wallpaper from `theme/`. It is
-not run by `install_assistant.sh`, not run by the daemon, and not
-something the assistant will ever invoke on its own -- the assistant's
-system prompt explicitly instructs the model never to propose a theme/
-appearance change unless you specifically ask for one, and even then it
-would show you the exact change as a plan you'd have to approve first (see
-`SetConfig` in `plan-types/src/lib.rs`). Run `install_theme.sh` by hand,
-once, only if you actually want that look applied -- it will ask for
-confirmation before doing anything.
-
-The installer detects your distro (`/etc/os-release`) and installs the
-right packages automatically for Arch/CachyOS/Manjaro (pacman + AUR),
-Fedora (dnf), Debian/Ubuntu (apt), and openSUSE (zypper). Two tools
-(kdotool, piper-tts) don't have packages on every distro -- see
-[docs/VOICE_SETUP.md](docs/VOICE_SETUP.md) for the two-command manual
-install on distros without a repo package. See
-[docs/JAN_SETUP.md](docs/JAN_SETUP.md) for pulling the DeepSeek model into
-Jan.ai the first time.
-
-Everything backing the assistant -- Jan.ai's server, the Whisper/Piper
-worker -- is started **by** `protogen-daemon` itself as soon as it launches
-(via a `systemd --user` service the installer sets up), so you never start
-any model or backend process by hand. Just run:
-
-```
-protogen-ui
-```
 
 to open the assistant window, whenever you want it.
 
@@ -166,6 +129,10 @@ everything required is installed upon running the quick install command
 
 [nyarch-assistant](https://github.com/NyarchLinux/NyarchAssistant) for the insparation of the idea, the many "i made jarvis" videos on instagram
 
+## customization
+
+the avatar folder
+
 # how to install
 
 open a terminal to whatever dir you want the project folder and run the command below into it
@@ -182,6 +149,21 @@ to run the assistant is just
 protogen-ui
 ```
 if this command doesn't load the ui app for the assistant try rebooting and trying the launch command again, if any other problems occur feel free to inform me through the issues tab in this github page
+
+
+The installer detects your distro (`/etc/os-release`) and installs the
+right packages automatically for Arch/CachyOS/Manjaro/guardia (pacman + AUR),
+Fedora (dnf), Debian/Ubuntu (apt), and openSUSE (zypper). Two tools
+(kdotool, piper-tts) don't have packages on every distro -- see
+[docs/VOICE_SETUP.md](docs/VOICE_SETUP.md) for the two-command manual
+install on distros without a repo package. See
+[docs/JAN_SETUP.md](docs/JAN_SETUP.md) for pulling the DeepSeek model into
+Jan.ai the first time.
+
+Everything backing the assistant -- Jan.ai's server, the Whisper/Piper
+worker -- is started **by** `protogen-daemon` itself as soon as it launches
+(via a `systemd --user` service the installer sets up), so you never start
+any model or backend process by hand. it is ran with the primary start command
 
 ## this project does not directly install anything outside of the user home dir except requirement packages for python etc
 
