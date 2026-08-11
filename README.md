@@ -1,11 +1,4 @@
 # ProtogenOS
-<<<<<<< HEAD
-
-A local, voice-and-text controllable system assistant for Linux, with a
-GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
-backed by [Jan.ai](https://www.jan.ai/) running a small local model (Qwen3.5
-4B by default -- see the note on model choice below), offline
-=======
 ### small warning that this project has only been tested on guardia arch with kde plasma and is **not** compatible with windows at all during this stage
 but it should work on fedora, debian, ubuntu, most arch distributions and openSUSE, this goes into more detail in the "how to install" part of the README
 this project assumes you have python and rust installed before compiling refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) pages
@@ -13,7 +6,6 @@ this project assumes you have python and rust installed before compiling refer t
 A local, voice-and-text controllable system assistant for Linux, with a
 GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
 backed by [Jan.ai](https://www.jan.ai/) running a DeepSeek model, offline
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
 Whisper speech-to-text, and offline Piper speech output.
 
 It can open/focus applications by voice or text, control common system
@@ -23,21 +15,6 @@ step-by-step plan, show you exactly what it intends to run, and only touch
 your system after you approve it. Approved plans are remembered, so the
 next time you ask for the same thing it's instant.
 
-<<<<<<< HEAD
-## A note on "DeepSeek"
-
-Earlier drafts of this project targeted a full DeepSeek model as the
-backend. In practice, current DeepSeek releases are 200B-670B+ parameter
-models that need 100GB+ of disk and 64GB+ of RAM even at aggressive
-quantization -- not something a normal laptop, including one with
-integrated graphics, can run. **The default model is Qwen3.5 4B**, a small
-model that actually fits consumer hardware and runs entirely on CPU. See
-[docs/JAN_SETUP.md](docs/JAN_SETUP.md) for the full explanation and for how
-to point this at a real DeepSeek quant if you have a machine that can
-actually run one.
-
-=======
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
 ## Why this is safe to run
 
 The single hard rule this whole project is built around: **the AI model
@@ -90,11 +67,7 @@ maintaining.
 3. **Known phrase** (anything approved before) is looked up in the SQLite
    memory bank and run instantly.
 4. **Unknown request** triggers: a couple of web searches for grounding
-<<<<<<< HEAD
-   (e.g. correct package/unit names for your distro) → Jan.ai is
-=======
    (e.g. correct package/unit names for your distro) → Jan.ai/DeepSeek is
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
    asked for a plan, constrained to the closed step vocabulary → the plan
    is shown in the UI as a card listing exactly what will run → you approve
    or cancel. Only `launch_or_focus`/`utility` steps ever skip this
@@ -116,49 +89,7 @@ Reboot the machine
 straight to that plan (still shown, since it's still system-changing) with
 no research step.
 
-<<<<<<< HEAD
-## Installing
 
-```
-git clone <this repo>
-cd protogenos
-./installer/install_assistant.sh    # the assistant: daemon, UI, voice, Jan.ai wiring
-```
-
-That's the only script you need. It never touches your KDE theme, color
-scheme, icon theme, or wallpaper.
-
-There is a **separate, optional** `installer/install_theme.sh` for the
-original ProtogenOS Plasma color scheme + wallpaper from `theme/`. It is
-not run by `install_assistant.sh`, not run by the daemon, and not
-something the assistant will ever invoke on its own -- the assistant's
-system prompt explicitly instructs the model never to propose a theme/
-appearance change unless you specifically ask for one, and even then it
-would show you the exact change as a plan you'd have to approve first (see
-`SetConfig` in `plan-types/src/lib.rs`). Run `install_theme.sh` by hand,
-once, only if you actually want that look applied -- it will ask for
-confirmation before doing anything.
-
-The installer detects your distro (`/etc/os-release`) and installs the
-right packages automatically for Arch/CachyOS/Manjaro (pacman + AUR),
-Fedora (dnf), Debian/Ubuntu (apt), and openSUSE (zypper). Two tools
-(kdotool, piper-tts) don't have packages on every distro -- see
-[docs/VOICE_SETUP.md](docs/VOICE_SETUP.md) for the two-command manual
-install on distros without a repo package. See
-[docs/JAN_SETUP.md](docs/JAN_SETUP.md) for pulling the default model into
-Jan.ai the first time.
-
-Everything backing the assistant -- Jan.ai's server, the Whisper/Piper
-worker -- is started **by** `protogen-daemon` itself as soon as it launches
-(via a `systemd --user` service the installer sets up), so you never start
-any model or backend process by hand. Just run:
-
-```
-protogen-ui
-```
-=======
-
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
 
 to open the assistant window, whenever you want it.
 
@@ -181,32 +112,13 @@ to open the assistant window, whenever you want it.
 - **Avatar art**: drop `idle.png` / `listening.png` / `thinking.png` /
   `speaking.png` into `~/.local/share/protogenos/avatar/`.
 
-<<<<<<< HEAD
-## Status / honesty note
-
-This is a substantial rewrite from the original Python prototype into a
-multi-crate Rust + Python project, built without access to a Rust
-toolchain in the environment it was written in -- it has been carefully
-hand-reviewed for type/borrow correctness but **has not been compiled**.
-Expect to run `cargo build --release --workspace` and fix a handful of real
-compiler errors on first build; the architecture and security boundary are
-the parts to trust, the exact syntax in a few files (especially
-`ui/src/client.rs`'s threading and the gtk4-rs API surface) is the part
-most likely to need small fixes against whatever gtk4-rs version actually
-resolves.
-
-## What this deliberately does NOT do
-=======
 ## What this deliberately does NOT do and will NEVER be able to
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
 
 It does not give the LLM a way to run arbitrary shell commands, no matter
 how the request is phrased ("run whatever you think is needed", "just use
 sudo", etc.) -- that vocabulary boundary in `plan-types` is fixed in code,
 not configurable, and is the one thing in this project not meant to be
 loosened.
-<<<<<<< HEAD
-=======
 
 ## what are the big ai models/tools used in this project that run off your device if you chose to install this project for yourself
 
@@ -260,4 +172,3 @@ any model or backend process by hand. it is ran with the primary start command
 
 # warning for installer/install_theme.sh 
 in my expirience it has a tendency to crash plasmashell and you will need to manually ctrl+c the script and run kstart plasmashell
->>>>>>> 2233bbd4f1233cf46123547c739e6ab7c865004c
