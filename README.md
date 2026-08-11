@@ -187,4 +187,5 @@ if this command doesn't load the ui app for the assistant try rebooting and tryi
 
 ## this does run completely offline and does not need you to manually install dependencies(if you use the quick install command) 
 
-# do not run installer/install_theme.sh as it has a tendency to crash plasmashell and you will need to manually ctrl+c the script and run kstart plasmashell
+# warning for installer/install_theme.sh 
+in my expirience it has a tendency to crash plasmashell and you will need to manually ctrl+c the script and run kstart plasmashell
