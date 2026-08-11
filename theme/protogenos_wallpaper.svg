@@ -1,0 +1,91 @@
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0b0e"/>
+      <stop offset="100%" stop-color="#121420"/>
+    </linearGradient>
+    <linearGradient id="glowCyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00fff0" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00fff0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#00fff0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glowMagenta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff00ea" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff00ea" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff00ea" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g stroke="#00fff0" stroke-opacity="0.06">
+    <g id="vlines"></g>
+  </g>
+  <g stroke="#1c2230" stroke-width="1">
+    <path d="M0,0 h1920" stroke-opacity="0"/>
+  </g>
+
+  <!-- perspective grid floor -->
+  <g stroke="#00fff0" stroke-opacity="0.10" stroke-width="1.5">
+    <path d="M960,650 L0,1080"/>
+    <path d="M960,650 L192,1080"/>
+    <path d="M960,650 L384,1080"/>
+    <path d="M960,650 L576,1080"/>
+    <path d="M960,650 L768,1080"/>
+    <path d="M960,650 L960,1080"/>
+    <path d="M960,650 L1152,1080"/>
+    <path d="M960,650 L1344,1080"/>
+    <path d="M960,650 L1536,1080"/>
+    <path d="M960,650 L1728,1080"/>
+    <path d="M960,650 L1920,1080"/>
+    <path d="M300,880 L1620,880"/>
+    <path d="M420,780 L1500,780"/>
+    <path d="M600,700 L1320,700"/>
+    <path d="M760,660 L1160,660"/>
+  </g>
+
+  <!-- horizon glow bar -->
+  <rect x="0" y="644" width="1920" height="3" fill="url(#glowCyan)"/>
+
+  <!-- concentric HUD rings -->
+  <g fill="none" stroke-opacity="0.35">
+    <circle cx="960" cy="430" r="260" stroke="#00fff0" stroke-width="1.5"/>
+    <circle cx="960" cy="430" r="320" stroke="#ff00ea" stroke-width="1"/>
+    <circle cx="960" cy="430" r="180" stroke="#00fff0" stroke-width="1" stroke-dasharray="6 10"/>
+  </g>
+
+  <!-- central chevron / visor accent shape (abstract, non-figurative) -->
+  <g filter="url(#blur1)">
+    <path d="M760,430 L960,320 L1160,430 L1080,430 L960,365 L840,430 Z" fill="#00fff0" fill-opacity="0.85"/>
+    <path d="M800,470 L960,390 L1120,470 L1060,470 L960,420 L860,470 Z" fill="#ff00ea" fill-opacity="0.55"/>
+  </g>
+
+  <!-- scanlines -->
+  <g stroke="#00fff0" stroke-opacity="0.04">
+    <path d="M0,100 H1920 M0,140 H1920 M0,180 H1920 M0,220 H1920 M0,260 H1920 M0,300 H1920 M0,340 H1920 M0,380 H1920 M0,420 H1920 M0,460 H1920 M0,500 H1920 M0,540 H1920 M0,580 H1920 M0,620 H1920"/>
+  </g>
+
+  <!-- corner brackets -->
+  <g stroke="#00fff0" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M60,60 L60,140 M60,60 L140,60"/>
+    <path d="M1860,60 L1860,140 M1860,60 L1780,60"/>
+    <path d="M60,1020 L60,940 M60,1020 L140,1020"/>
+    <path d="M1860,1020 L1860,940 M1860,1020 L1780,1020"/>
+  </g>
+
+  <!-- small data readout marks -->
+  <g fill="#00fff0" opacity="0.5" font-family="monospace" font-size="14">
+    <text x="80" y="200">SYS::ONLINE</text>
+    <text x="80" y="220">CORE_TEMP  NOMINAL</text>
+    <text x="1700" y="200" text-anchor="end">NET::LINK_UP</text>
+    <text x="1700" y="220" text-anchor="end">UPTIME  --:--:--</text>
+  </g>
+
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+</svg>

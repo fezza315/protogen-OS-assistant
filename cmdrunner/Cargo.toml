@@ -1,0 +1,15 @@
+[package]
+name = "protogen-cmdrunner"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "protogen_cmdrunner"
+path = "src/lib.rs"
+
+[dependencies]
+protogen-plan = { path = "../plan-types" }
+protogen-launcher = { path = "../launcher-scan" }
+anyhow = "1"
+tracing = "0.1"
+serde = { version = "1", features = ["derive"] }
