@@ -1,7 +1,7 @@
 # ProtogenOS
-### warning that this project has only been tested on guardia arch with kde plasma and is highly likely not to work on windows
-but it should work on fedora, debian, ubuntu and most arch distributions 
-this project assumes you have python and rust installed prior. refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) page
+### small warning that this project has only been tested on guardia arch with kde plasma and is **not** compatible with windows at all during this stage
+but it should work on fedora, debian, ubuntu, most arch distributions and openSUSE, this goes into more detail in the "how to install" part of the README
+this project assumes you have python and rust installed before compiling refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) page
 
 A local, voice-and-text controllable system assistant for Linux, with a
 GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
@@ -138,8 +138,10 @@ the avatar folder
 open a terminal to whatever dir you want the project folder and run the command below into it
 
 ```
+# cloans this repo to the place you had your terminal located before CD'ing into it
 git clone https://github.com/fezza315/protogen-OS-assistant
 cd protogen-OS-assistant
+# compiling with rust before running the bash installer to install the code for the commands to ~/.local/share/protogenos
 cargo build --release --workspace
 bash installer/install_assistant.sh
 ```
@@ -149,7 +151,6 @@ to run the assistant is just
 protogen-ui
 ```
 if this command doesn't load the ui app for the assistant try rebooting and trying the launch command again, if any other problems occur feel free to inform me through the issues tab in this github page
-
 
 The installer detects your distro (`/etc/os-release`) and installs the
 right packages automatically for Arch/CachyOS/Manjaro/guardia (pacman + AUR),
