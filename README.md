@@ -1,7 +1,7 @@
 # ProtogenOS
 ### small warning that this project has only been tested on guardia arch with kde plasma and is **not** compatible with windows at all during this stage
 but it should work on fedora, debian, ubuntu, most arch distributions and openSUSE, this goes into more detail in the "how to install" part of the README
-this project assumes you have python and rust installed before compiling refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) page
+this project assumes you have python and rust installed before compiling refer to the [install rust forum](https://rust-lang.org/tools/install/) and the [python download](https://www.python.org/downloads/) pages
 
 A local, voice-and-text controllable system assistant for Linux, with a
 GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
