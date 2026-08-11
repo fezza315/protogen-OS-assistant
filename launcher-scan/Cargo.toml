@@ -1,0 +1,15 @@
+[package]
+name = "protogen-launcher"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "protogen_launcher"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+walkdir = "2"
+anyhow = "1"
+strsim = "0.11"
+tracing = "0.1"

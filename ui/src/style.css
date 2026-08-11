@@ -1,0 +1,52 @@
+.protogen-root {
+  background-color: #0d1117;
+}
+
+.avatar-pane {
+  background-color: #161b22;
+  border-right: 1px solid #30363d;
+}
+
+.chat-pane {
+  padding: 12px;
+}
+
+.chat-log {
+  padding: 8px;
+}
+
+.bubble-user {
+  background-color: #1f6feb;
+  color: white;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 2px 4px 2px 60px;
+}
+
+.bubble-assistant {
+  background-color: #21262d;
+  color: #c9d1d9;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 2px 60px 2px 4px;
+}
+
+.bubble-system {
+  color: #8b949e;
+  font-size: 0.85em;
+  margin: 2px 20px;
+}
+
+.plan-card {
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 4px 20px;
+}
+
+.plan-step {
+  color: #c9d1d9;
+  font-family: monospace;
+  font-size: 0.9em;
+}
