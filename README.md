@@ -1,4 +1,6 @@
 # ProtogenOS
+### warning that this project has only been tested on guardia arch with kde plasma and is highly likely not to work on windows
+but it should work on fedora, debian, ubuntu and most arch distributions 
 
 A local, voice-and-text controllable system assistant for Linux, with a
 GTK4 avatar UI in the spirit of [Nyarch Assistant](https://github.com/NyarchLinux/NyarchAssistant),
@@ -147,20 +149,7 @@ to open the assistant window, whenever you want it.
 - **Avatar art**: drop `idle.png` / `listening.png` / `thinking.png` /
   `speaking.png` into `~/.local/share/protogenos/avatar/`.
 
-## Status / honesty note
-
-This is a substantial rewrite from the original Python prototype into a
-multi-crate Rust + Python project, built without access to a Rust
-toolchain in the environment it was written in -- it has been carefully
-hand-reviewed for type/borrow correctness but **has not been compiled**.
-Expect to run `cargo build --release --workspace` and fix a handful of real
-compiler errors on first build; the architecture and security boundary are
-the parts to trust, the exact syntax in a few files (especially
-`ui/src/client.rs`'s threading and the gtk4-rs API surface) is the part
-most likely to need small fixes against whatever gtk4-rs version actually
-resolves.
-
-## What this deliberately does NOT do
+## What this deliberately does NOT do and will NEVER be able to
 
 It does not give the LLM a way to run arbitrary shell commands, no matter
 how the request is phrased ("run whatever you think is needed", "just use
@@ -172,8 +161,30 @@ loosened.
 
 [jan.ai](https://www.jan.ai/), [deepseekV4](https://www.deepseek.com/en/), [piper](https://github.com/rhasspy/piper), [whisper](https://github.com/openai/whisper)
 
+everything required is installed upon running the quick install command
 ## credits
 
 [nyarch-assistant](https://github.com/NyarchLinux/NyarchAssistant) for the insparation of the idea, the many "i made jarvis" videos on instagram
 
-# this project has only been tested on guardia arch with kde plasma
+# how to install
+
+open a terminal to whatever dir you want the project folder and run the command below into it
+
+```
+git clone https://github.com/fezza315/protogen-OS-assistant
+cd protogen-OS-assistant
+cargo build --release --workspace
+bash installer/install_assistant.sh
+```
+wait for it to compile and install dependencies and once complete
+to run the assistant is just
+```
+protogen-ui
+```
+if this command doesn't load the ui app for the assistant try rebooting and trying the launch command again, if any other problems occur feel free to inform me through the issues tab in this github page
+
+## this project does not directly install anything outside of the user home dir except requirement packages for python etc
+
+## this does run completely offline and does not need you to manually install dependencies(if you use the quick install command) 
+
+# do not run installer/install_theme.sh as it has a tendency to crash plasmashell and you will need to manually ctrl+c the script and run kstart plasmashell
