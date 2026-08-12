@@ -129,26 +129,62 @@ fi
 
 if ! command -v jan &>/dev/null; then
     echo ""
-    echo "!! Jan.ai ('jan' binary) not found on PATH -- this is the ONE step"
-    echo "   this installer can't do for you."
-    echo ""
-    echo "   1. Download the Jan.ai AppImage:"
-    echo "        https://github.com/janhq/jan/releases/latest"
-    echo "   2. chmod +x it and run it once (this installs the 'jan' CLI):"
-    echo "        chmod +x Jan-*.AppImage && ./Jan-*.AppImage"
-    echo "      Make sure the CLI ends up on your \$PATH (it installs to"
-    echo "      /usr/local/bin/jan or ~/.local/bin/jan)."
-    echo "   3. Pull the default model once (this downloads it):"
-    echo "        jan serve qwen3.5-4b"
-    echo "      Ctrl+C once it reports ready -- protogen-daemon runs it for"
-    echo "      you from then on."
-    echo ""
-    echo "   Full details, including why this project does NOT default to a"
-    echo "   full DeepSeek model (they need 100GB+ disk / 64GB+ RAM and won't"
-    echo "   run on typical laptop hardware), are in docs/JAN_SETUP.md."
-    echo "   Until you do this, protogen-daemon will keep retrying 'jan serve'"
-    echo "   in the background and log warnings -- app launching and the"
-    echo "   memory bank still work fine without it."
+    echo "==> Jan.ai not found -- installing it automatically"
+    echo "    (AppImage from GitHub releases + CLI install + default model pull)"
+
+    JAN_DIR="$HOME/.local/share/protogenos/jan-app"
+    mkdir -p "$JAN_DIR"
+    JAN_APPIMAGE="$JAN_DIR/Jan.AppImage"
+
+    JAN_URL=$(curl -sSL https://api.github.com/repos/janhq/jan/releases/latest \
+        | grep -oP '"browser_download_url":\s*"\K[^"]*linux[^"]*\.AppImage' | head -n1)
+
+    if [ -z "$JAN_URL" ]; then
+        echo "!! Could not auto-detect the latest Jan.ai AppImage download URL."
+        echo "   Install manually -- see docs/JAN_SETUP.md."
+    else
+        echo "    Downloading: $JAN_URL"
+        curl -sSL "$JAN_URL" -o "$JAN_APPIMAGE"
+        chmod +x "$JAN_APPIMAGE"
+
+        # AppImages normally need FUSE to run directly; --appimage-extract
+        # unpacks it without needing FUSE installed, which is the more
+        # reliable path for a non-interactive installer.
+        echo "    Extracting AppImage (avoids needing FUSE installed)..."
+        (cd "$JAN_DIR" && "$JAN_APPIMAGE" --appimage-extract >/dev/null 2>&1)
+
+        if [ -f "$JAN_DIR/squashfs-root/AppRun" ]; then
+            # Launching once installs the jan CLI to ~/.local/bin or
+            # /usr/local/bin per Jan's own installer behavior. Run it
+            # headless/briefly in the background just long enough to
+            # trigger that, then stop it -- we don't want the GUI window.
+            echo "    Running Jan once to install the CLI (this may take a moment)..."
+            timeout 20 "$JAN_DIR/squashfs-root/AppRun" --no-sandbox &>/dev/null || true
+            pkill -f "$JAN_DIR/squashfs-root/AppRun" 2>/dev/null || true
+        fi
+
+        export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+        if command -v jan &>/dev/null; then
+            echo "    jan CLI installed."
+            echo "    Pulling default model (qwen3.5-4b) -- this downloads a few GB,"
+            echo "    so it may take a while depending on your connection..."
+            # jan serve blocks until the model is downloaded and the server
+            # reports ready, then keeps serving -- for install-time pulling
+            # we just need it to finish downloading, so we let it run with
+            # a generous timeout and then stop it; protogen-daemon starts
+            # its own long-lived instance later, this is purely to make
+            # sure the model bytes are already on disk before first use.
+            timeout 900 jan serve qwen3.5-4b --timeout 300 &
+            JAN_PID=$!
+            wait "$JAN_PID" 2>/dev/null || true
+            pkill -f "jan serve qwen3.5-4b" 2>/dev/null || true
+            echo "    Default model ready."
+        else
+            echo "!! Jan CLI still not found on PATH after running the AppImage once."
+            echo "   Add \$HOME/.local/bin to your PATH and re-run this installer,"
+            echo "   or follow the manual steps in docs/JAN_SETUP.md."
+        fi
+    fi
     echo ""
 fi
 
