@@ -170,5 +170,15 @@ any model or backend process by hand. it is ran with the primary start command
 
 ## this does run completely offline and does not need you to manually install dependencies(if you use the quick install command) 
 
-# warning for installer/install_theme.sh 
-in my expirience it has a tendency to crash plasmashell and you will need to manually ctrl+c the script and run kstart plasmashell
+
+### note on specifically `install_theme.sh`
+Earlier versions of this script had a tendency to crash plasmashell when
+restarting it to apply the new wallpaper/color scheme. That's been fixed
+-- the script now checks whether plasmashell actually restarted and tells
+you if it didn't, instead of just leaving your desktop gone. If you ever
+do end up without a panel/desktop after running it, run: `kstart plasmashell` in a terminal(open with ctrl+alt+T) and it will launch plasma-shell so your panel, desktop etc will come back
+also atm the theme isnt what i plan it to be in the end, i want to get the wallpaper commissioned, find a more fitting theme. the only reason it is here now is because i plan to make the assistant part of plasmashell as something that goes on your panel as a widget or item that sits atop it. 
+
+# final note
+this is 100% not a final build and **is not complete** as written in the description. i am still working on this and im still new to coding and development to this scale, this is my first bigger project using anything but python, shell and js 
+also i would be very grateful for tips, suggestions or issues youve had in the issues tab and i will be setting up a google form that you can actually fill out in the near future(within the coming days)
