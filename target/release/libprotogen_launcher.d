@@ -1,1 +1,0 @@
-/home/fezza315/Documents/protogenos/target/release/libprotogen_launcher.rlib: /home/fezza315/Documents/protogenos/launcher-scan/src/desktop_index.rs /home/fezza315/Documents/protogenos/launcher-scan/src/focus_or_launch.rs /home/fezza315/Documents/protogenos/launcher-scan/src/lib.rs
