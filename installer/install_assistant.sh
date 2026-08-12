@@ -31,6 +31,17 @@ SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
 echo "=================================================="
 echo " ProtogenOS Assistant installer"
 echo "=================================================="
+echo ""
+
+if [ -f "$DIR/installer/dedsec.md" ]; then
+    # printf '%b' interprets \033[...m ANSI escape codes (underline, reset,
+    # etc) portably across shells -- 'echo -e' is not reliable here since
+    # some shells' builtin echo doesn't support the -e flag at all.
+    while IFS= read -r line; do
+        printf '%b\n' "$line"
+    done < "$DIR/installer/dedsec.md"
+    echo ""
+fi
 
 # ---------------------------------------------------------------------
 # 1. Distro detection
@@ -200,6 +211,18 @@ cargo build --release --workspace
 # ---------------------------------------------------------------------
 echo "==> Installing to $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR" "$BIN_DIR" "$INSTALL_DIR/voices" "$INSTALL_DIR/avatar"
+
+# Stop the running daemon first if this is a reinstall/update -- the
+# binary can't be overwritten while it's executing ("Text file busy").
+# Covers both the systemd-managed case and anyone who ran protogen-daemon
+# directly from a terminal outside systemd.
+if systemctl --user is-active --quiet protogenos-daemon 2>/dev/null; then
+    echo "    Stopping the currently running protogenos-daemon so its"
+    echo "    binary can be replaced..."
+    systemctl --user stop protogenos-daemon
+fi
+pkill -x protogen-daemon 2>/dev/null || true
+sleep 1
 
 cp "$DIR/target/release/protogen-daemon" "$BIN_DIR/"
 cp "$DIR/target/release/protogen-ui" "$BIN_DIR/"
