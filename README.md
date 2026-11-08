@@ -17,17 +17,20 @@ step-by-step plan, show you exactly what it intends to run, and only touch
 your system after you approve it. Approved plans are remembered, so the
 next time you ask for the same thing it's instant.
 
-## A note on "DeepSeek"
+## A note on the previous use of "DeepSeek"
 
 Earlier drafts of this project targeted a full DeepSeek model as the
 backend. In practice, current DeepSeek releases are 200B-670B+ parameter
 models that need 100GB+ of disk and 64GB+ of RAM even at aggressive
 quantization -- not something a normal laptop, including one with
 integrated graphics, can run. **The default model is Qwen3.5 4B**, a small
-model that actually fits consumer hardware and runs entirely on CPU. See
+model that actually fits a normal users hardware and can run entirely on CPU but also supports gpu(to my knowlege). See
 [docs/JAN_SETUP.md](docs/JAN_SETUP.md) for the full explanation and for how
 to point this at a real DeepSeek quant if you have a machine that can
-actually run one.
+actually run this one aswell.
+
+also on a note, this can work on "low end" hardware for an locally run AI standard, my device im running this off is a HP probook 440 G10 with no Dedicated Gpu. 16 gb of ram, 256GB of storeage and a I5-1335U, so low end.
+in the future i might be moving to a acer NITRO referbished but i will continue to test on this hardware for a low end base-line.
 
 ## Why this is safe to run
 
@@ -46,22 +49,22 @@ hands the model's output to a shell interpreter.
 ## Architecture
 
 ```
-protogenos/
-├── plan-types/      Rust. The closed action vocabulary (the security boundary).
-├── launcher-scan/   Rust. .desktop file indexing + focus-or-launch (kdotool/wmctrl).
-├── cmdrunner/        Rust. The only place a Step becomes a real process.
-├── daemon/           Rust. protogen-daemon -- the actual assistant:
-│                       memory bank (SQLite), Jan.ai client, web research,
-│                       dispatcher, Unix socket API, process supervision
-│                       for Jan.ai + the voice bridge.
-├── ui/               Rust (gtk4-rs). protogen-ui -- avatar + chat window.
-├── voice_bridge/     Python. Persistent Whisper STT + Piper TTS worker,
-│                       spoken to over stdin/stdout JSON by the daemon.
-├── installer/        sh. Distro detection, package installs, systemd
-│                       --user service, theme installer.
-├── theme/            KDE Plasma color scheme + wallpaper (unchanged from
-│                       the original ProtogenOS theme).
-└── docs/             Jan.ai setup, voice tool setup.
+~/protogenos/
+  ├── plan-types/      Rust. The closed action vocabulary (the security boundary).
+  ├── launcher-scan/   Rust. .desktop file indexing + focus-or-launch (kdotool/wmctrl).
+  ├── cmdrunner/        Rust. The only place a Step becomes a real process.
+  ├── daemon/           Rust. protogen-daemon -- the actual assistant:
+  │                       memory bank (SQLite), Jan.ai client, web research,
+  │                       dispatcher, Unix socket API, process supervision
+  │                       for Jan.ai + the voice bridge.
+  ├── ui/               Rust (gtk4-rs). protogen-ui -- avatar + chat window.
+  ├── voice_bridge/     Python. Persistent Whisper STT + Piper TTS worker,
+  │                       spoken to over stdin/stdout JSON by the daemon.
+  ├── installer/        sh. Distro detection, package installs, systemd
+  │                       --user service, theme installer.
+  ├── theme/            KDE Plasma color scheme + wallpaper (unchanged from
+  │                       the original ProtogenOS theme).
+  └── docs/             Jan.ai setup, voice tool setup.
 ```
 
 Language split: **Rust** for everything that needs to be fast, resident in
@@ -126,14 +129,14 @@ next time.
 
 ## What this deliberately does NOT do and will NEVER be able to
 
-It does not give the LLM a way to run arbitrary shell commands, no matter
+This project does not and will never give a LLM a way to run arbitrary shell commands, no matter
 how the request is phrased ("run whatever you think is needed", "just use
-sudo", etc.) -- that vocabulary boundary in `plan-types` is fixed in code,
-not configurable, and is the one thing in this project not meant to be
-loosened.
+sudo", etc.) -- that vocabulary boundary in `plan-types` is fixed in code is not not configurable, 
+and is one of the things in this project that will not be loosened under any circumstances.
+
 With internet access, if you ask for something the assistant doesn't
 already know how to do, it researches the command/package/steps needed,
-builds a plan, and shows you exactly what it intends to do -- asking for
+builds a plan, and shows you exactly what it intends to do and asks for
 your confirmation before actually doing it. Nothing it hasn't seen before
 runs without you approving it first.
 
@@ -154,7 +157,7 @@ while depending on your connection.
 
 ## customization
 
-the avatar folder has places you can put the avatars frames as png as atm it animates in pngtuber style(this will change to be an actual 2d rig like vtubers)
+the avatar folder has places you can put the avatars frames as png as atm it animates in pngtuber style(this will change to be an actual 2d rig like vtubers, this is just for ease of testing atm and will change for the "final release")
 
 ## a slight summary of what the assistant is capable of
 
@@ -248,7 +251,23 @@ you if it didn't, instead of just leaving your desktop gone. If you ever
 do end up without a panel/desktop after running it, run: `kstart plasmashell` in a terminal(open with ctrl+alt+T) and it will launch plasma-shell so your panel, desktop etc will come back
 also atm the theme isnt what i plan it to be in the end, i want to get the wallpaper commissioned, find a more fitting theme. the only reason it is here now is because i plan to make the assistant part of plasmashell as something that goes on your panel as a widget or item that sits atop it.
 
-# final note
+# final note's
 
-this is 100% not a final build and **is not complete** as written in the description. i am still working on this and im still new to coding and development to this scale, this is my first bigger project using anything but python, shell and js
-also i would be very grateful for tips, suggestions or issues youve had in the issues tab and i will be setting up a google form that you can actually fill out in the near future(within the coming days)
+**this is 100% not a final build and is not complete** as written in the description. i am still working on this and im still new to coding and development to this scale, this is my first bigger project using anything but python, shell and at most js.
+also i would be very grateful for tips, suggestions or issues you've had in the issues tab and i will be setting up a google form that you can actually fill out in the future.
+id also love ideas to add to the project.
+
+this is intended to be a rolling release like arch(what it is based off) and will receive updates from arch itself and other packages, im also working adding an update/download manager like cachyOS.
+this is also as of now build of garuda|archlinux but will be moved next year to base arch when i move systems as that is what ill be running.
+
+# time line
+
+this project is intended to take years as it is a full AI assistant that i want to be seamlessly integrated like siri or jarvis, not just something tacked on. 
+i also want it to be as optimized and fast as possible so low end hardware dont feel the tank of the LLM running while gaming or doing other demanding things, as for the reason of it being rust
+i also want to bring in move developers to this project to help me out as this project is very daunting as i still am very new to this
+
+```
+next year: move to base arch
+two months after: fix the app so the user can cleanly use the LLM without needing to troubleshoot for the intended use. 
+a month after: make the app into a widget
+3 months after: release visual models, backgrounds and themes along with the live2D support for the model visualization
