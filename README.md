@@ -211,10 +211,11 @@ meaning, not exact spelling for when using writen mode instead of voice controls
 open a terminal to whatever dir you want the project folder and run the command below into it
 
 ```
-# cloans this repo to the place you had your terminal located before CD'ing into it
+# cloans this repo to the place you had your terminal located before moving into it
 git clone https://github.com/fezza315/protogen-OS-assistant
 cd protogen-OS-assistant
-# compiling with rust before running the bash installer to install the code for the commands to ~/.local/share/protogenos
+# compiling with rust before running the bash installer to install
+# the code for the commands to ~/.local/share/protogenos
 cargo build --release --workspace
 bash installer/install_assistant.sh
 ```
@@ -231,6 +232,7 @@ if this command doesn't load the ui app for the assistant try rebooting and tryi
 The installer detects your distro (`/etc/os-release`) and installs the
 right packages automatically for Arch/CachyOS/Manjaro/guardia (pacman + AUR),
 Fedora (dnf), Debian/Ubuntu (apt), and openSUSE (zypper). Two tools
+im not sure about nixOS but i will be putting some research into that
 (kdotool, piper-tts) don't have packages on every distro -- see [docs/VOICE_SETUP.md](docs/VOICE_SETUP.md) for the two-command manual
 install on distros without a repo package. See [docs/JAN_SETUP.md](docs/JAN_SETUP.md) for more detail on the default model and how to switch to a bigger one if you have the hardware for it.
 
@@ -268,6 +270,8 @@ i also want to bring in move developers to this project to help me out as this p
 
 ```
 next year: move to base arch
-two months after: fix the app so the user can cleanly use the LLM without needing to troubleshoot for the intended use. 
+two months after: fix the app so the user can cleanly use the LLM without needing to
+    troubleshoot for the intended use. 
 a month after: make the app into a widget
-3 months after: release visual models, backgrounds and themes along with the live2D support for the model visualization
+3 months after: release visual models, backgrounds and themes along with the
+    live2D support for the model visualization
