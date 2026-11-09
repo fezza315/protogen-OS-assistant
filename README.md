@@ -145,9 +145,9 @@ With internet access, if you ask for something the assistant doesn't
 already know how to do, it researches the command/package/steps needed,
 builds a plan, and shows you exactly what it intends to do and asks for
 your confirmation before actually doing it. Nothing it hasn't seen before
-runs without you approving it first.
+runs without **you** approving it first.
 
-## what are the big ai models/tools used in this project that run off your device if you chose to install this project for yourself
+## what are the big ai models/tools used in this project that run locally off your device if you choose to install this project for yourself?
 
 [jan.ai](https://www.jan.ai/), [Qwen3.5](https://qwenlm.github.io/) (default model, see the DeepSeek note above), [piper](https://github.com/rhasspy/piper), [whisper](https://github.com/openai/whisper)
 
@@ -217,8 +217,24 @@ meaning, not exact spelling for when using writen mode instead of voice controls
 
 open a terminal to whatever dir you want the project folder and run the command below into it
 
+## per-distro requirement installing
+### arch
+`sudo pacman -S rustup git`
+### fedora
+`sudo dnf install git rustup`
+### ubuntu
 ```
-# cloans this repo to the place you had your terminal located before moving into it
+sudo apt update && sudo apt install -y curl build-essential
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+then select 1 when the prompt arrives
+`sudo apt install git`
+### nixOS
+ima be so fr, i have no clue how your package manager works but you need rust and git at a bare minimum
+
+### all distro's do this to actually install the project
+```
+# cloan's this repo to the place you had your terminal located before moving into it
 git clone https://github.com/fezza315/protogen-OS-assistant
 cd protogen-OS-assistant
 # compiling with rust before running the bash installer to install
