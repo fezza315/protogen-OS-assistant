@@ -263,7 +263,7 @@ also atm the theme isnt what i plan it to be in the end, i want to get the wallp
 # final note's
 
 **this is 100% not a final build and is not complete** as written in the description. i am still working on this and im still new to coding and development to this scale, this is my first bigger project using anything but python, shell and at most js.
-also i would be very grateful for tips, suggestions or issues you've had in the issues tab or go to this [google forum](https://docs.google.com/forms/d/e/1FAIpQLSdsIiN_PBm-YfNtTAr9O8WCECLyAK0DS3W1e5_mnlv41vE2dA/viewform?usp=dialog) that doesnt show me your email or any details unless you manually provide them youself
+also i would be very grateful for tips, suggestions or issues you've had in the issues tab or go to this [google forum](https://forms.gle/jPgTHNuEXncjy5ch8) that doesnt show me your email or any details unless you manually provide them youself
 id also love ideas to add to the project in the google forum as i would love some creativity of others.
 
 this is intended to be a rolling release like arch(what it is based off) and will receive updates from arch itself and other packages, im also working adding an update/download manager like cachyOS.
