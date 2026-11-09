@@ -24,13 +24,20 @@ backend. In practice, current DeepSeek releases are 200B-670B+ parameter
 models that need 100GB+ of disk and 64GB+ of RAM even at aggressive
 quantization -- not something a normal laptop, including one with
 integrated graphics, can run. **The default model is Qwen3.5 4B**, a small
-model that actually fits a normal users hardware and can run entirely on CPU but also supports gpu(to my knowlege). See
-[docs/JAN_SETUP.md](docs/JAN_SETUP.md) for the full explanation and for how
-to point this at a real DeepSeek quant if you have a machine that can
-actually run this one aswell.
+model that actually fits a normal users hardware and can run entirely on CPU 
+but also supports gpu(to my knowledge). See [docs/JAN_SETUP.md](docs/JAN_SETUP.md) for the full 
+explanation and for how to point this at a real DeepSeek quant if you have 
+a machine that can actually run this one for yourself but i can not test that myself.
 
-also on a note, this can work on "low end" hardware for an locally run AI standard, my device im running this off is a HP probook 440 G10 with no Dedicated Gpu. 16 gb of ram, 256GB of storeage and a I5-1335U, so low end.
-in the future i might be moving to a acer NITRO referbished but i will continue to test on this hardware for a low end base-line.
+## hardware compatibility
+
+this can work on "low end" hardware for an locally run AI standard, 
+my device im running and developing this off is a 
+`HP probook 440 G10` with no Dedicated Gpu. 16 gb of ram, 
+256GB of storage and a I5-1335U, so  id say pretty low end.
+
+i will be upgrading in the future to a acer NITRO refurbished 
+but i will continue to test on the low end hardware for a base-line to keep the performance in check.
 
 ## Why this is safe to run
 
